@@ -15,7 +15,7 @@ export const uploadPDF = async (req: UploadRequest, res: Response) => {
     const pdf: IPDF = new PDF({
       uuid: uuidv4(),
       filename: req.file.originalname,
-      path: req.file.path,
+      path: req.file.filename, // store only filename
       userId: req.userId,
     });
 
@@ -27,7 +27,10 @@ export const uploadPDF = async (req: UploadRequest, res: Response) => {
 };
 
 // List User PDFs
-export const getPDFs = async (req: Request & { userId?: string }, res: Response) => {
+export const getPDFs = async (
+  req: Request & { userId?: string },
+  res: Response
+) => {
   try {
     const pdfs = await PDF.find({ userId: req.userId });
     res.json({ pdfs });
