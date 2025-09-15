@@ -3,8 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import Dashboard from "../pages/Dashboard";
 import Viewer from "../pages/Viewer";
-import { isLoggedIn } from "../utils/auth";
-import Navbar from "../components/Navbar";
+import { isLoggedIn } from "../../utils/auth";
 
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   return isLoggedIn() ? children : <Navigate to="/auth" />;

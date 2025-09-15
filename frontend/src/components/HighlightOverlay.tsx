@@ -1,11 +1,7 @@
 import React from "react";
 
-export interface Highlight {
-  pdfUuid: string;
-  page: number;
-  text: string;
-  position: { x: number; y: number; width: number; height: number };
-}
+
+import { type Highlight } from "../types/Highlight";
 
 interface HighlightOverlayProps {
   highlights: Highlight[];

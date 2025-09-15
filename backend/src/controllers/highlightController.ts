@@ -9,7 +9,7 @@ export const addHighlight = async (req: HighlightRequest, res: Response) => {
   try {
     const { pdfUuid, page, text, position } = req.body;
 
-    // Check if PDF exists and belongs to user
+    // Check PDF ownership
     const pdf = await PDF.findOne({ uuid: pdfUuid, userId: req.userId });
     if (!pdf) return res.status(404).json({ message: "PDF not found" });
 
@@ -39,6 +39,44 @@ export const getHighlights = async (req: HighlightRequest, res: Response) => {
     });
 
     res.json({ highlights });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+// Update highlight
+export const updateHighlight = async (req: HighlightRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { text, position } = req.body;
+
+    const highlight = await Highlight.findOneAndUpdate(
+      { _id: id, userId: req.userId },
+      { text, position },
+      { new: true }
+    );
+
+    if (!highlight) return res.status(404).json({ message: "Highlight not found" });
+
+    res.json({ message: "Highlight updated", highlight });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+// Delete highlight
+export const deleteHighlight = async (req: HighlightRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const highlight = await Highlight.findOneAndDelete({
+      _id: id,
+      userId: req.userId,
+    });
+
+    if (!highlight) return res.status(404).json({ message: "Highlight not found" });
+
+    res.json({ message: "Highlight deleted" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }

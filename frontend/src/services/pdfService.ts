@@ -30,3 +30,15 @@ export const getPDFByUuid = async (uuid: string): Promise<PDF> => {
   if (!pdf) throw new Error("PDF not found");
   return pdf;
 };
+
+// Rename PDF
+export const renamePDF = async (uuid: string, newName: string) => {
+  const res = await api.put(`/pdf/${uuid}/rename`, { newName });
+  return res.data;
+};
+
+// Delete PDF
+export const deletePDF = async (uuid: string) => {
+  const res = await api.delete(`/pdf/${uuid}`);
+  return res.data;
+};
