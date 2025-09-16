@@ -1,12 +1,5 @@
 import api from "./api";
-
-export interface Highlight {
-  _id?: string; // include id for update/delete
-  pdfUuid: string;
-  page: number;
-  text: string;
-  position?: { x: number; y: number; width: number; height: number };
-}
+import { type Highlight } from "../types/Highlight"; 
 
 // Add highlight
 export const addHighlight = async (highlight: Highlight) => {

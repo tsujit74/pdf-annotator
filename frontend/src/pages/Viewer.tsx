@@ -73,12 +73,13 @@ const Viewer: React.FC = () => {
     };
 
     const highlight: Highlight = {
-        pdfUuid: uuid!,
-        page: pageNumber,
-        text,
-        position,
-        _id: null
-    };
+  pdfUuid: uuid!,
+  page: pageNumber,
+  text,
+  position,
+  _id: undefined 
+};
+
 
     addHighlight(highlight)
       .then(() => fetchHighlights(uuid!))
